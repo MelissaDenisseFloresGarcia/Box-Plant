@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxPlant | Innovar en verde</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="miniaturas.png">
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PALETA DE COLORES --- */
+        :root {
+            --verde-oscuro: #1E3A29;
+            --verde-medio: #4A7C59;
+            --verde-claro: #D1E2D3;
+            --beige: #F9F8F6;
+            --texto-oscuro: #222222;
+            --texto-claro: #555555;
+            --blanco: #FFFFFF;
+            --borde: #EAEAEA;
+            
+            --transicion: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--beige);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--verde-oscuro);
+            font-weight: 600;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--blanco);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo span {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--texto-oscuro);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--verde-medio);
+        }
+
+        /* --- HERO SECTION CON CARRUSEL --- */
+        .hero {
+            position: relative;
+            height: 50vh;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+            background-color: var(--blanco); 
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0; 
+            z-index: 1;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30, 58, 41, 0.5); 
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: var(--blanco);
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            color: var(--blanco);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* --- CONTENEDORES PRINCIPALES --- */
+        .section-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: none; 
+        }
+
+        .section-container.active {
+            display: block;
+        }
+
+        /* --- SECCIÓN DE INFORMACIÓN DEL PRODUCTO --- */
+        .product-info-box {
+            background: var(--blanco);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 4rem;
+            border-left: 6px solid var(--verde-medio);
+        }
+
+        .product-info-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-info-box p {
+            font-size: 1.05rem;
+            color: var(--texto-claro);
+            margin-bottom: 1.2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--beige);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-family: 'Inter', sans-serif;
+            color: var(--verde-medio);
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* --- SECCIÓN DE COMBINACIONES --- */
+        .combinations-box {
+            background: var(--blanco);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 4rem;
+        }
+
+        .combinations-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .combinations-box > p {
+            text-align: center;
+            color: var(--texto-claro);
+            margin-bottom: 2rem;
+        }
+
+        .combos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .combo-card {
+            background: var(--beige);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--verde-oscuro);
+        }
+
+        .combo-card h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .combo-card p {
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+        }
+
+        /* --- CATÁLOGO DE PLANTAS --- */
+        .category-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: 4rem;
+        }
+
+        .category-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-header p {
+            color: var(--texto-claro);
+            font-size: 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .plant-card {
+            background: var(--blanco);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: var(--transicion);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--borde);
+            cursor: pointer;
+        }
+
+        .plant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .plant-image {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plant-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .plant-card:hover .plant-image img {
+            transform: scale(1.05);
+        }
+
+        .plant-info {
+            padding: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .plant-info h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--texto-oscuro);
+        }
+
+        .plant-info p {
+            font-size: 0.85rem;
+            color: var(--texto-claro);
+            line-height: 1.4;
+        }
+
+        /* --- NOSOTROS Y MANUAL --- */
+        .content-card {
+            background: var(--blanco);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .content-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .content-card h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 2px solid var(--verde-claro);
+            padding-bottom: 0.5rem;
+        }
+
+        .content-card p {
+            color: var(--texto-claro);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .team-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-list li {
+            font-weight: 500;
+            color: var(--verde-oscuro);
+            padding: 0.8rem;
+            background: var(--beige);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .manual-step {
+            background: var(--beige);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--verde-medio);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .manual-step h3 {
+            margin-top: 0;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.3rem;
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--blanco);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 16px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: var(--texto-oscuro);
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 10;
+            transition: var(--transicion);
+        }
+
+        .modal-close:hover {
+            color: var(--verde-medio);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2.5rem;
+        }
+
+        .modal-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .modal-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .modal-header-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--verde-oscuro);
+        }
+
+        .modal-header-info p {
+            color: var(--texto-claro);
+            font-size: 1rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--verde-medio);
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--borde);
+            padding-bottom: 0.3rem;
+        }
+
+        .modal-section p {
+            color: var(--texto-claro);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .params-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .param-item {
+            background: var(--beige);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--verde-oscuro);
+        }
+
+        .param-item strong {
+            display: block;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .param-item span {
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+        }
+
+        .modal-footer {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        .btn-manual {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transicion);
+            display: inline-block;
+        }
+
+        .btn-manual:hover {
+            background: var(--verde-medio);
+            transform: translateY(-2px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--verde-oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            .plant-image {
+                height: 160px;
+            }
+            .content-card, .product-info-box, .combinations-box {
+                padding: 1.5rem;
+            }
+            .team-list {
+                grid-template-columns: 1fr;
+            }
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .params-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="showSection('producto')">
+                <img src="LOGO BOX PLANT.png" alt="BoxPlant Logo" onerror="this.style.display='none'">
+                <span>BoxPlant</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a onclick="showSection('producto')" class="active" id="nav-producto">El Producto</a></li>
+                    <li><a onclick="showSection('catalogo')" id="nav-catalogo">Catálogo de Plantas</a></li>
+                    <li><a onclick="showSection('manual')" id="nav-manual">Manual de Uso</a></li>
+                    <li><a onclick="showSection('nosotros')" id="nav-nosotros">Nosotros</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION CON CARRUSEL -->
+    <div class="hero" id="hero-banner">
+        <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1545241047-6083a36a1d18?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1525498128493-380d1990a112?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1512428813834-c702c7702b78?q=80&w=1920&auto=format&fit=crop');"></div>
+
+        <div class="hero-content">
+            <h1>El futuro del cuidado de tus plantas.</h1>
+            <p>BoxPlant monitorea y cubre de manera autónoma las necesidades de tu cultivo mediante tecnología y sustentabilidad.</p>
+        </div>
+    </div>
+
+    <!-- ================= CONTENEDOR: EL PRODUCTO ================= -->
+    <div id="producto" class="section-container active" style="margin-top: -3rem; position: relative; z-index: 10;">
+        
+        <div class="product-info-box">
+            <h2>Descripción de la Empresa y el Producto</h2>
+            <p><strong>BoxPlant</strong> es una empresa hidrocálida de base tecnológica y enfoque sustentable, creada por universitarios multidisciplinarios de la UAA. Su propuesta se centra en erradicar el marchitamiento vegetal por falta de tiempo o experiencia mediante un <strong>módulo inteligente de acrílico</strong> con secciones integradas para planta, agua y composta casera.</p>
+            <p>A través de sensores de humedad, un sistema de riego automatizado y una aplicación móvil intuitiva, BoxPlant monitorea y cubre de manera autónoma las necesidades del cultivo. La empresa promueve activamente el aprovechamiento de residuos orgánicos, la autosuficiencia alimentaria a pequeña escala y el diseño verde en espacios urbanos reducidos.</p>
+            <p><strong>Nuestra Misión:</strong> Ser una empresa líder en el cuidado inteligente y sostenible de plantas indoor.</p>
+            <p><strong>Nuestra Visión:</strong> Posicionarnos en el mercado internacional para el 2029, integrando tecnología y naturaleza de manera responsable y transparente.</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>+10,000</h3>
+                    <p>Plantas cuidadas con éxito</p>
+                </div>
+                <div class="stat-card">
+                    <h3>77.3%</h3>
+                    <p>Aceptación de compra (Estudio UAA)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>81.5%</h3>
+                    <p>Interés en fabricar su propia composta</p>
+                </div>
+                <div class="stat-card">
+                    <h3>$1,800 - $2,000</h3>
+                    <p>Precio de introducción óptimo</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="combinations-box">
+            <h2>Posibles Combinaciones de Plantas</h2>
+            <p>El módulo BoxPlant está diseñado para albergar distintas especies, pero <strong>es crucial combinarlas correctamente</strong>. Las plantas que elijas deben compartir necesidades similares de luz y agua para que prosperen juntas.</p>
+            
+            <div class="combos-grid">
+                <div class="combo-card">
+                    <h4>Combinación "Bajo Mantenimiento" (Suculentas)</h4>
+                    <p>Ideal para principiantes o personas con poco tiempo. Puedes combinar <strong>Kalanchoe, Echeveria y Crassula</strong>. Requieren muy poca agua y les encanta la luz indirecta. El sistema automatizado de BoxPlant será muy cuidadoso con el riego.</p>
+                </div>
+                <div class="combo-card">
+                    <h4>Combinación "Aromática y Culinaria"</h4>
+                    <p>Perfecta para la cocina. Combina <strong>Albahaca, Perejil y Cilantro</strong>. Son plantas que necesitan humedad constante y mucha luz. Al compartir el mismo módulo, el sensor de humedad mantendrá el nivel ideal para todas.</p>
+                </div>
+                <div class="combo-card">
+                    <h4>Combinación "Ornamental y Decorativa"</h4>
+                    <p>Para darle vida a tu hogar. Combina <strong>Fitonias, Violetas y Peperomias</strong>. Este grupo prefiere ambientes húmedos y luz indirecta. La Fitonia aportará patrones únicos, mientras la Violeta dará un toque de color constante.</p>
+                </div>
+                <div class="combo-card">
+                    <h4>Combinación "Medicinal y Relajante"</h4>
+                    <p>Combina <strong>Manzanilla, Menta y Lavanda</strong>. Son plantas que comparten la necesidad de un buen drenaje y luz abundante. Son perfectas para tés e infusiones, y su aroma mantendrá tu espacio fresco y relajado.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= CONTENEDOR: CATÁLOGO INFORMATIVO ================= -->
+    <div id="catalogo" class="section-container">
+        
+        <!-- 1. PLANTAS DECORATIVAS / ORNAMENTALES -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>Plantas Ornamentales y Suculentas</h2>
+                <p>Dale vida y estilo a tus espacios interiores.</p>
+            </div>
+            <div class="products-grid">
+                <!-- Kalanchoe -->
+                <div class="plant-card" onclick="openModal('kalanchoe')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/kalancho.jpg" alt="Kalanchoe"></div>
+                    <div class="plant-info">
+                        <h3>Kalanchoe</h3>
+                        <p>Suculenta resistente y de fácil cultivo. Ideal para principiantes.</p>
+                    </div>
+                </div>
+                <!-- Echeveria -->
+                <div class="plant-card" onclick="openModal('echeveria')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/echeveria.webp" alt="Echeveria"></div>
+                    <div class="plant-info">
+                        <h3>Echeveria</h3>
+                        <p>Suculenta en forma de roseta, muy popular por sus colores vivos.</p>
+                    </div>
+                </div>
+                <!-- Crassula -->
+                <div class="plant-card" onclick="openModal('crassula')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/cassula.jpg" alt="Crassula"></div>
+                    <div class="plant-info">
+                        <h3>Crassula</h3>
+                        <p>Sus hojas se disponen en una bonita formación de cruz alterna.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PLANTAS COMESTIBLES -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>Plantas Comestibles y Aromáticas</h2>
+                <p>El toque perfecto para tu cocina y huerto urbano.</p>
+            </div>
+            <div class="products-grid">
+                <!-- Albahaca -->
+                <div class="plant-card" onclick="openModal('albahaca')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/albahaca.webp" alt="Albahaca"></div>
+                    <div class="plant-info">
+                        <h3>Albahaca</h3>
+                        <p>Hojas aromáticas de uso cotidiano en la cocina. Permite cosechas sucesivas.</p>
+                    </div>
+                </div>
+                <!-- Lechuga -->
+                <div class="plant-card" onclick="openModal('lechuga')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/lechuga.webp" alt="Lechuga"></div>
+                    <div class="plant-info">
+                        <h3>Lechuga</h3>
+                        <p>Hortaliza de hoja suelta. Permite retirar hojas externas conforme se necesitan.</p>
+                    </div>
+                </div>
+                <!-- Espinaca -->
+                <div class="plant-card" onclick="openModal('espinaca')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/espinaca.jpg" alt="Espinaca"></div>
+                    <div class="plant-info">
+                        <h3>Espinaca</h3>
+                        <p>Alternativa a la lechuga para periodos frescos. Hojas para distintos usos culinarios.</p>
+                    </div>
+                </div>
+                <!-- Fresa -->
+                <div class="plant-card" onclick="openModal('fresa')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/frsa.webp" alt="Fresa"></div>
+                    <div class="plant-info">
+                        <h3>Fresa</h3>
+                        <p>Planta de porte bajo que produce frutos comestibles y flores de interés visual.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PLANTAS MEDICINALES -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>Plantas Medicinales</h2>
+                <p>Propiedades naturales para tu bienestar diario.</p>
+            </div>
+            <div class="products-grid">
+                <!-- Romero -->
+                <div class="plant-card" onclick="openModal('romero')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/v1793947949/romero.jpg" alt="Romero"></div>
+                    <div class="plant-info">
+                        <h3>Romero</h3>
+                        <p>Estimulante y aromático. Una de las favoritas del mercado (58.1%).</p>
+                    </div>
+                </div>
+                <!-- Lavanda -->
+                <div class="plant-card" onclick="openModal('lavanda')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/v1793948094/lavanda.webp" alt="Lavanda"></div>
+                    <div class="plant-info">
+                        <h3>Lavanda</h3>
+                        <p>Relajante y decorativa. Comparte el primer lugar de preferencia (58.1%).</p>
+                    </div>
+                </div>
+                <!-- Tomillo -->
+                <div class="plant-card" onclick="openModal('tomillo')">
+                    <div class="plant-image"><img src="https://res.cloudinary.com/wqgx7l6o/image/upload/v1793948095/tomillo.jpg" alt="Tomillo"></div>
+                    <div class="plant-info">
+                        <h3>Tomillo</h3>
+                        <p>Condimento esencial. Ocupa el tercer lugar de preferencia (16.6%).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ================= CONTENEDOR: NOSOTROS ================= -->
+    <div id="nosotros" class="section-container">
+        <div class="content-card">
+            <h2>Somos BoxPlant</h2>
+            <p>BoxPlant es una empresa hidrocálida de base tecnológica y enfoque sustentable, creada por universitarios multidisciplinarios de la UAA para facilitar el autocultivo de plantas de interior en hogares y oficinas. Nuestra propuesta se centra en erradicar el marchitamiento vegetal por falta de tiempo o experiencia mediante un módulo inteligente de acrílico.</p>
+            
+            <h3>Nuestra Filosofía</h3>
+            <p>Somos una empresa que busca mantener la relación del medio ambiente con la tecnología de manera responsable, con innovación y transparencia. Nos regimos por valores como la honestidad, el trabajo en equipo, la responsabilidad, la innovación, la competitividad, la calidad y la sostenibilidad ambiental.</p>
+
+            <h3>El Equipo Detrás</h3>
+            <p>Nuestro equipo está conformado por estudiantes y profesionales de diversas áreas (Biotecnología, Química, Ofimática y Sistemas), lo que nos permite abordar el proyecto desde una perspectiva integral.</p>
+            <ul class="team-list">
+                <li>Emmanuel De la Cruz Rodríguez</li>
+                <li>Melissa Denisse Flores García</li>
+                <li>Danna Nerey Hernández Molina</li>
+                <li>Rafael Marquez Macias</li>
+                <li>José Alberto Medina Ávila</li>
+                <li>Carla Sabrina García Guzmán</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ================= CONTENEDOR: MANUAL GENERAL ================= -->
+    <div id="manual" class="section-container">
+        <div class="content-card">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Manual de Uso General</h2>
+            
+            <div class="manual-step">
+                <h3>1. Preparación del Sustrato</h3>
+                <p>Abre el cajón extraíble inferior y asegúrate de colocar los residuos orgánicos para la generación de composta natural.</p>
+            </div>
+            <div class="manual-step">
+                <h3>2. Llenado de Agua</h3>
+                <p>Llena el depósito elevado. El sistema de mangueras distribuirá el líquido de forma automatizada según lo dicten los sensores.</p>
+            </div>
+            <div class="manual-step">
+                <h3>3. Colocación de la Planta</h3>
+                <p>Coloca tu planta en la maceta removible superior. La bandeja recolectora evitará derrames y mantendrá el área limpia.</p>
+            </div>
+            <div class="manual-step">
+                <h3>4. Vinculación con la App</h3>
+                <p>Descarga la aplicación BoxPlant, vincúlala vía Bluetooth/Wi-Fi y monitorea el estado de humedad de tu planta en tiempo real.</p>
+            </div>
+            <div class="manual-step">
+                <h3>5. Disfruta</h3>
+                <p>El sistema regará de forma autónoma. Solo revisa la aplicación de vez en cuando para asegurarte de que todo esté perfecto.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CONTENEDOR: MANUAL ESPECÍFICO DE PLANTA (Oculto por defecto) ================= -->
+    <div id="manual-planta" class="section-container">
+        <div class="content-card" id="manual-planta-content">
+            <!-- El contenido se llenará dinámicamente con JS -->
+        </div>
+    </div>
+
+    <!-- MODAL OVERLAY -->
+    <div class="modal-overlay" id="plantModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-body">
+                <div class="modal-header">
+                    <img src="" alt="Planta" class="modal-img" id="modal-img">
+                    <div class="modal-header-info">
+                        <h2 id="modal-title">Nombre</h2>
+                        <p id="modal-desc">Descripción</p>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Características Atractivas</h3>
+                    <p id="modal-atractivos">...</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Parámetros en BoxPlant</h3>
+                    <div class="params-grid">
+                        <div class="param-item">
+                            <strong>Humedad y Riego</strong>
+                            <span id="modal-riego">...</span>
+                        </div>
+                        <div class="param-item">
+                            <strong>Luz</strong>
+                            <span id="modal-luz">...</span>
+                        </div>
+                        <div class="param-item">
+                            <strong>Temperatura</strong>
+                            <span id="modal-temp">...</span>
+                        </div>
+                        <div class="param-item">
+                            <strong>Sustrato / Nutrientes</strong>
+                            <span id="modal-sustrato">...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-manual" onclick="openManualPlanta()">Ver Manual de Uso de esta Planta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 BoxPlant. Innovar en verde. Hecho en Aguascalientes, México.</p>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // --- BASE DE DATOS DE PLANTAS (Basado en el PDF) ---
+        const plantasData = {
+            kalanchoe: {
+                nombre: "Kalanchoe",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/kala.webp",
+                descripcion: "Una variedad resistente que crece de forma vigorosa y es fácil de cultivar.",
+                atractivos: "Hojas con finos vellos que les da una textura idéntica al terciopelo. Múltiples flores en forma de campana brotan al final de largos tallos florales.",
+                riego: "1 vez por semana en verano/primavera. En invierno 1 o 2 veces al mes. Humedad baja a media (30% a 60%).",
+                luz: "3 a 4 horas de sol directo y 8 horas de luz brillante.",
+                temp: "Resistente al calor del verano. Entra en reposo en invierno (reducir riego).",
+                sustrato: "Suelo ligero, suelto y con drenaje (poroso, perlita, grava fina, astillas de madera, cortezas, paja, hojas secas, aserrín, cáscaras de huevo)."
+            },
+            echeveria: {
+                nombre: "Echeveria",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/ech.jpg",
+                descripcion: "Plantas muy populares por la disposición de sus hojas en forma de roseta y su gran variedad de formas y colores.",
+                atractivos: "Hojas extendidas similar a los pétalos de una rosa. Florecen múltiples flores pequeñas al inicio de la primavera. Sus hojas adquieren tonos vibrantes a finales de noviembre.",
+                riego: "Regar SOLO cuando el sustrato esté seco. 7-15 días en primavera/verano y cada 20-30 días en invierno. Humedad 40-50%.",
+                luz: "Mucha luz brillante, 4-6 horas en sol directo al día para mantener los colores vivos.",
+                temp: "Entre 21°C y 27°C. Resisten el frío pero deben protegerse de heladas severas.",
+                sustrato: "Suelo ligero, suelto y con drenaje (poroso, perlita, grava fina, etc). Requerimientos bajos de nutrientes."
+            },
+            crassula: {
+                nombre: "Crassula",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/cra.jpg",
+                descripcion: "Género de plantas suculentas que se dividen en variedades de desarrollo en primavera/otoño y variedades de invierno.",
+                atractivos: "Vistas desde arriba, sus hojas se disponen en una bonita formación de cruz alterna. Durante el otoño, sus hojas adquieren tonalidades muy vivas.",
+                riego: "Regar moderadamente en días frescos de verano. En verano requieren suspensión total del riego. No suspender riego radicalmente en primavera/otoño.",
+                luz: "Requieren sombra en verano. Necesitan buena ventilación.",
+                temp: "Son muy sensibles al calor veraniego. Crecen despacio.",
+                sustrato: "Suelo con buen drenaje. Se deben podar las partes caídas o marchitas."
+            },
+            albahaca: {
+                nombre: "Albahaca",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/alba.avif",
+                descripcion: "Planta herbácea cultivada por sus hojas aromáticas, utilizadas frescas o secas como condimento.",
+                atractivos: "Hojas aromáticas de uso cotidiano en la cocina. Posibilidad de cosechar porciones pequeñas sin retirar toda la planta.",
+                riego: "Mantener humedad relativamente uniforme, con drenaje libre. Regar según el secado del sustrato, evitando encharcamiento.",
+                luz: "Ubicación soleada con aproximadamente 6 a 8 horas diarias de luz intensa.",
+                temp: "Requiere condiciones cálidas durante su crecimiento. Debe protegerse del frío y de las heladas.",
+                sustrato: "Mezcla fértil, aireada y drenante, con materia orgánica bien descompuesta."
+            },
+            lechuga: {
+                nombre: "Lechuga",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/lech.jpg",
+                descripcion: "Hortaliza de hoja que puede cultivarse a partir de semillas o plántulas. Se proponen lechugas de hoja suelta.",
+                atractivos: "Aprovechamiento directo de las hojas en alimentos frescos. Posibilidad de cosecha parcial en variedades de hoja suelta.",
+                riego: "Mantener humedad constante sin saturar las raíces. Evitar alternar periodos de sequía con riegos excesivos.",
+                luz: "De 3 a 5 horas de sol directo al día. La exposición debe ajustarse para evitar sobrecalentamiento.",
+                temp: "Favorecer condiciones frescas; mejor crecimiento cuando no se superan aproximadamente 24 °C.",
+                sustrato: "Mezcla fértil y bien drenada. Puede incorporar composta madura."
+            },
+            espinaca: {
+                nombre: "Espinaca",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/espina.webp",
+                descripcion: "Hortaliza cuyas hojas pueden consumirse frescas o cocidas. Se incluye como alternativa a la lechuga para periodos frescos.",
+                atractivos: "Producción de hojas comestibles para distintos usos culinarios. Cosecha gradual de hojas externas.",
+                riego: "Conservar humedad regular en el sustrato, evitando el secado intenso y el agua estancada.",
+                luz: "De 3 a 5 horas de sol directo al día. Si se usan lámparas, ajustar fotoperiodo para evitar floración prematura.",
+                temp: "Procurar condiciones que no superen aproximadamente 24 °C durante el cultivo.",
+                sustrato: "Mezcla fértil, drenante y con materia orgánica madura."
+            },
+            fresa: {
+                nombre: "Fresa",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/fresa.jpg",
+                descripcion: "Planta perenne de porte bajo que produce frutos comestibles y estolones capaces de originar nuevas plantas.",
+                atractivos: "Frutos comestibles y flores de interés visual. Porte bajo que facilita observar su desarrollo.",
+                riego: "Conservar el sustrato ligeramente húmedo, sin encharcar. Dirigir el riego al sustrato y evitar mojar la corona y los frutos.",
+                luz: "Al menos 6 horas de sol directo al día como referencia para favorecer la producción de frutos.",
+                temp: "Requiere un perfil ajustado al cultivar. Referencia experimental: ~23°C de día y ~18°C de noche.",
+                sustrato: "Mezcla aireada y drenante con materia orgánica madura. Ajustar fertilización a la etapa de crecimiento."
+            },
+            romero: {
+                nombre: "Romero",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/f_auto/q_auto/rom.jpg",
+                descripcion: "Planta medicinal y aromática, una de las favoritas del mercado según el estudio de mercado.",
+                atractivos: "Aroma intenso y propiedades estimulantes. Muy utilizado en la cocina y la medicina tradicional.",
+                riego: "Riego moderado. Prefiere suelos que se sequen entre riegos. No tolera el encharcamiento.",
+                luz: "Pleno sol. Necesita al menos 6 horas de luz directa al día.",
+                temp: "Resistente a altas temperaturas. Proteger de heladas fuertes.",
+                sustrato: "Suelo arenoso, ligero y con excelente drenaje."
+            },
+            lavanda: {
+                nombre: "Lavanda",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/v1793948094/lav.webp",
+                descripcion: "Planta relajante y decorativa. Comparte el primer lugar de preferencia en el estudio de mercado (58.1%).",
+                atractivos: "Aroma calmante, flores moradas muy atractivas. Ideal para infusiones y aromaterapia.",
+                riego: "Riego escaso. Es muy sensible al exceso de humedad. Dejar secar el sustrato completamente entre riegos.",
+                luz: "Pleno sol. Requiere mucha luz para florecer abundantemente.",
+                temp: "Prefiere climas cálidos y secos. Resiste bien el frío si el suelo está seco.",
+                sustrato: "Suelo pobre, arenoso y muy bien drenado. No necesita muchos nutrientes."
+            },
+            tomillo: {
+                nombre: "Tomillo",
+                imagen: "https://res.cloudinary.com/wqgx7l6o/image/upload/v1793948094/tom.png",
+                descripcion: "Planta medicinal y aromática. Ocupa el tercer lugar de preferencia en el estudio de mercado (16.6%).",
+                atractivos: "Sabor y aroma intensos. Excelente para condimentar carnes y guisos.",
+                riego: "Riego moderado. Prefiere la sequía a los excesos de agua.",
+                luz: "Pleno sol.",
+                temp: "Muy resistente a las heladas y al calor.",
+                sustrato: "Suelo ligero y arenoso, con buen drenaje."
+            }
+        };
+
+        let plantaActual = '';
+
+        // --- LÓGICA DEL CARRUSEL ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const hero = document.getElementById('hero-banner');
+            let slides = Array.from(document.querySelectorAll('.carousel-slide'));
+            
+            for (let i = slides.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [slides[i], slides[j]] = [slides[j], slides[i]];
+            }
+
+            slides.forEach(slide => {
+                hero.insertBefore(slide, hero.firstChild);
+            });
+
+            let slideIndex = 0;
+            slides[0].classList.add('active');
+
+            function showSlides() {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slideIndex++;
+                if (slideIndex >= slides.length) slideIndex = 0;
+                slides[slideIndex].classList.add('active');
+                setTimeout(showSlides, 5000); 
+            }
+            setTimeout(showSlides, 5000);
+        });
+
+        // --- LÓGICA DE PESTAÑAS ---
+        function showSection(sectionId) {
+            const sections = ['producto', 'catalogo', 'nosotros', 'manual', 'manual-planta'];
+            const hero = document.getElementById('hero-banner');
+
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.remove('active');
+                const nav = document.getElementById('nav-' + id);
+                if(nav) nav.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            const activeNav = document.getElementById('nav-' + sectionId);
+            if(activeNav) activeNav.classList.add('active');
+
+            if (sectionId === 'producto') {
+                hero.style.display = 'flex';
+            } else {
+                hero.style.display = 'none';
+            }
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // --- LÓGICA DEL MODAL ---
+        function openModal(plantaId) {
+            const data = plantasData[plantaId];
+            if (!data) return;
+            
+            plantaActual = plantaId;
+
+            document.getElementById('modal-img').src = data.imagen;
+            document.getElementById('modal-title').innerText = data.nombre;
+            document.getElementById('modal-desc').innerText = data.descripcion;
+            document.getElementById('modal-atractivos').innerText = data.atractivos;
+            document.getElementById('modal-riego').innerText = data.riego;
+            document.getElementById('modal-luz').innerText = data.luz;
+            document.getElementById('modal-temp').innerText = data.temp;
+            document.getElementById('modal-sustrato').innerText = data.sustrato;
+
+            document.getElementById('plantModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
+        }
+
+        function closeModal() {
+            document.getElementById('plantModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        document.getElementById('plantModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // --- LÓGICA DEL MANUAL ESPECÍFICO DE PLANTA ---
+        function openManualPlanta() {
+            const data = plantasData[plantaActual];
+            closeModal();
+            
+            const container = document.getElementById('manual-planta-content');
+            
+            container.innerHTML = `
+                <h2 style="text-align: center; margin-bottom: 0.5rem;">${data.nombre}</h2>
+                <p style="text-align: center; color: var(--texto-claro); margin-bottom: 2rem;">Manual de uso y especificaciones dentro de BoxPlant</p>
+                
+                <div class="manual-step" style="border-left-color: var(--verde-oscuro);">
+                    <h3>Parámetros de Configuración del Módulo</h3>
+                    <p><strong>Humedad y Riego:</strong> ${data.riego}</p>
+                    <p><strong>Luz requerida:</strong> ${data.luz}</p>
+                    <p><strong>Temperatura ideal:</strong> ${data.temp}</p>
+                    <p><strong>Sustrato recomendado:</strong> ${data.sustrato}</p>
+                </div>
+
+                <div class="manual-step">
+                    <h3>Paso 1: Preparación de la Planta</h3>
+                    <p>Retira la planta de su contenedor original y colócala en la maceta removible superior del módulo BoxPlant. Asegúrate de usar el sustrato recomendado para esta especie.</p>
+                </div>
+                
+                <div class="manual-step">
+                    <h3>Paso 2: Configuración de la App</h3>
+                    <p>Abre la aplicación BoxPlant y selecciona <strong>${data.nombre}</strong> en el catálogo de perfiles. La aplicación ajustará automáticamente los niveles de riego según los parámetros antes mencionados.</p>
+                </div>
+
+                <div class="manual-step">
+                    <h3>Paso 3: Mantenimiento</h3>
+                    <p>${data.atractivos} Revisa la aplicación periódicamente para recibir alertas si la planta requiere algún ajuste.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-manual" onclick="showSection('catalogo')">Volver al Catálogo</button>
+                </div>
+            `;
+
+            showSection('manual-planta');
+        }
+    </script>
+</body>
+</html>
