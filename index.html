@@ -47,13 +47,20 @@
             font-weight: 600;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER Y BARRA DE NAVEGACIÓN --- */
         header {
             background: var(--blanco);
-            position: sticky;
+            position: fixed; /* Fijado para poder ocultarlo/mostrarlo */
             top: 0;
+            width: 100%;
             z-index: 1000;
             border-bottom: 1px solid var(--borde);
+            transition: transform 0.4s ease-in-out; /* Transición para el efecto de ocultar */
+        }
+
+        /* Clase que se añade con JS para ocultar la barra */
+        .header-hidden {
+            transform: translateY(-100%);
         }
 
         .nav-container {
@@ -114,6 +121,7 @@
             padding: 2rem;
             overflow: hidden;
             background-color: var(--blanco); 
+            margin-top: 73px; /* Espacio para la barra fija */
         }
 
         .carousel-slide {
@@ -576,12 +584,25 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+            
+            /* CAMBIO: Catálogo de 2 columnas en móvil */
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                grid-template-columns: repeat(2, 1fr); /* Fuerza 2 columnas */
+                gap: 1rem; /* Reducir espacio entre tarjetas */
             }
             .plant-image {
-                height: 160px;
+                height: 140px; /* Reducir un poco la altura de la imagen para que quepan mejor */
             }
+            .plant-info {
+                padding: 1rem 0.5rem; /* Ajustar padding interno */
+            }
+            .plant-info h3 {
+                font-size: 0.95rem;
+            }
+            .plant-info p {
+                font-size: 0.75rem;
+            }
+
             .content-card, .product-info-box, .combinations-box {
                 padding: 1.5rem;
             }
@@ -601,7 +622,7 @@
 <body>
 
     <!-- HEADER -->
-    <header>
+    <header id="main-header">
         <div class="nav-container">
             <div class="logo" onclick="showSection('producto')">
                 <img src="LOGO BOX PLANT.png" alt="BoxPlant Logo" onerror="this.style.display='none'">
@@ -1150,6 +1171,25 @@
 
             showSection('manual-planta');
         }
+
+        // --- LÓGICA PARA OCULTAR LA BARRA AL HACER SCROLL ---
+        let lastScrollTop = 0;
+        const header = document.getElementById("main-header");
+
+        window.addEventListener('scroll', function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Si bajamos y pasamos los 100px, ocultamos la barra
+            if (currentScroll > lastScrollTop && currentScroll > 100) {
+                header.classList.add("header-hidden");
+            } else {
+                // Si subimos, mostramos la barra
+                header.classList.remove("header-hidden");
+            }
+            
+            // Guardamos la posición actual para la siguiente comparación
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; 
+        });
     </script>
 </body>
 </html>
